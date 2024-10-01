@@ -1,0 +1,84 @@
+/* General reset */
+body {
+    background-color: #e6f7ff; /* Light background color */
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Full height of the viewport */
+  }
+  
+  /* Container styling */
+  .container {
+    max-width: 400px; /* Max width of the form */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Subtle shadow effect */
+    background-color: #ffffff; /* White background for the form */
+    text-align: center; /* Center text inside container */
+  }
+  
+  /* Heading styling */
+  h1 {
+    color: #007bff; /* Bright blue color for the heading */
+    font-size: 2em; /* Larger font size for the heading */
+    margin-bottom: 20px; /* Space below the heading */
+  }
+  
+  /* Form styling */
+  form {
+    display: flex;
+    flex-direction: column; /* Arrange elements vertically */
+    gap: 15px; /* Space between form elements */
+  }
+  
+  /* Label styling */
+  label {
+    font-weight: bold; /* Make the label bold */
+    font-size: 1.1em; /* Increase label size */
+    text-align: left; /* Align labels to the left */
+  }
+  
+  /* Input styling */
+  input[type="text"],
+  input[type="password"] {
+    padding: 10px;
+    border: 2px solid #007bff; /* Blue border */
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none; /* Remove outline */
+    transition: border-color 0.3s; /* Smooth border color transition */
+  }
+  
+  /* Input focus styling */
+  input[type="text"]:focus,
+  input[type="password"]:focus {
+    border-color: #0056b3; /* Darker blue on focus */
+  }
+  
+  /* Button styling */
+  button {
+    padding: 10px;
+    border: none; /* Remove default border */
+    border-radius: 5px;
+    background-color: #28a745; /* Green background color */
+    color: white; /* White text color */
+    font-size: 16px;
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s, transform 0.3s; /* Smooth transition */
+  }
+  
+  /* Button hover effect */
+  button:hover {
+    background-color: #218838; /* Darker green on hover */
+    transform: scale(1.05); /* Slightly enlarge the button on hover */
+  }
+  
+  /* Description styling */
+  .description {
+    margin-top: 20px; /* Space above the description */
+    font-size: 1em; /* Slightly larger font size */
+    color: #555; /* Dark gray color */
+  }
+  
