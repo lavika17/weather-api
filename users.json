@@ -19,5 +19,8 @@
   },
   "virender": {
     "password": "$2a$10$xgsVn3B2apI7FC6O5pi2.u4QHqpAhESSNO1SwdbKRBl9xIYeeYMzG"
+  },
+  "abc": {
+    "password": "$2a$10$yQhn5RX7cNNM5uX/nJACMenPCBkjJra6dRNM77W.1zWcgveIs50EW"
   }
 }
