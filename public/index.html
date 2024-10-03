@@ -1,22 +1,30 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather App</title>
-    <link rel="stylesheet" href="/styles.css"> <!-- This link should be correct -->
+    <title>Weather App - Home</title>
+    <link rel="stylesheet" href="styles/styles.css">
+    <script src="script.js" defer></script> <!-- Include script file -->
 </head>
 <body>
+    <div class="nav-bar">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/register">Register</a></li>
+        </ul>
+    </div>
+
     <div class="container">
         <h1>Weather App</h1>
-        <!-- <img src="https://via.placeholder.com/150" alt="Weather Icon" class="weather-icon"> Placeholder image -->
-        <form action="" method="post">
+        <form id="weatherForm">
             <label for="CityInput">City Name:</label>
             <input type="text" name="cityName" id="CityInput" placeholder="Enter city name" required>
             <button type="submit">Get Weather</button>
         </form>
         <p class="description">Enter a city name to get the current weather information!</p>
+        <div id="weatherResult"></div> <!-- Display the result here -->
     </div>
 </body>
 </html>

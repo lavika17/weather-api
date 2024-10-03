@@ -1,40 +1,3 @@
-// const {response} = require('express');
-// const express = require('express');
-// const https = require('https');
-// const app = express();
-// const path = require('path');
-// const bodyParser = require('body-parser');
-
-// app.use(bodyParser.urlencoded({extended:true}));
-// app.use(express.static(path.join(__dirname,'public')));
-// app.get('/' , (req , res)=>{
-//     res.sendFile(__dirname +"/index.html");
-    
-// })
-// app.post('/',(req , res)=>{
-//     const querry = req.body.cityName
-//     const apiKey = '16ef0915f8a379f4de20cce10a5ee7e5'
-//     const url= 'https://api.openweathermap.org/data/2.5/weather?q='+ querry +'&appid='+apiKey+'&units=metric'
-//     https.get(url,(response)=>{
-//         //console.log(response);
-//         response.on('data',(data)=>{
-//             //console.log(data);
-//             const weatherData = JSON.parse(data);
-//             //console.log(weatherData);
-//             const temp = weatherData.main.temp;
-//             const discription = weatherData.weather[0].description
-//             //console.log(discription);
-//             res.write("<h1>The temperature in "+querry+" is " + temp + "degree celcius</h1>")
-//             res.write("<p>the weather discription is " + discription + "</p>" )
-//         })
-//     })
-// })
-
-
-// app.listen(3000 , ()=> console.log("our server is running at port 3000"))
-
-
-
 const express = require('express');
 const https = require('https');
 const path = require('path');
@@ -74,7 +37,7 @@ const saveUsers = (users) => {
 
 // Home route (weather form)
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // Weather data fetch and display route
@@ -84,30 +47,68 @@ app.post('/', (req, res) => {
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${query}&appid=${apiKey}&units=metric`;
 
   https.get(url, (response) => {
-    response.on('data', (data) => {
-      const weatherData = JSON.parse(data);
-      const temp = weatherData.main.temp;
-      const description = weatherData.weather[0].description;
+    let weatherData = '';
 
-      res.write(`<h1>The temperature in ${query} is ${temp}°C</h1>`);
-      res.write(`<p>The weather description is ${description}</p>`);
-      
-      // If logged in, allow saving weather
-      if (req.session.isAuthenticated) {
-        res.write('<form action="/save" method="POST"><button type="submit">Save Weather</button></form>');
-      } else {
-        res.write('<p>You must be logged in to save weather information.</p>');
-      }
-      res.send();
+    // Collect data chunks
+    response.on('data', (chunk) => {
+      weatherData += chunk;
     });
+
+    // When all data is received
+    response.on('end', () => {
+      const parsedData = JSON.parse(weatherData);
+
+      if (parsedData.cod !== 200) {
+        return res.send('<h1>City not found. Please try again.</h1><a href="/">Go Back</a>');
+      }
+
+      const temp = parsedData.main.temp;
+      const description = parsedData.weather[0].description;
+
+      // Construct the full HTML response
+      let weatherHtml = `
+        <h1>The temperature in ${query} is ${temp}°C</h1>
+        <p>The weather description is: ${description}</p>
+      `;
+
+      if (req.session.isAuthenticated) {
+        weatherHtml += `<form action="/save" method="POST"><button type="submit">Save Weather</button></form>`;
+      } else {
+        weatherHtml += `<p>You must be logged in to save weather information.</p>`;
+      }
+
+      // Set Content-Type header to text/html
+      res.setHeader('Content-Type', 'text/html');
+      
+      // Send the constructed HTML response to the client
+      res.send(`
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Weather Result</title>
+          <link rel="stylesheet" href="/styles/styles.css"> <!-- Link to your stylesheet -->
+        </head>
+        <body>
+          ${weatherHtml}
+          <a href="/">Go Back</a> <!-- Add a link to go back to the homepage -->
+        </body>
+        </html>
+      `);
+    });
+  }).on('error', (err) => {
+    res.setHeader('Content-Type', 'text/html');
+    res.send('<h1>Error fetching weather data. Please try again.</h1>');
   });
 });
 
 // User Registration Route
 app.get('/register', (req, res) => {
-  res.sendFile(__dirname + '/register.html');
+  res.sendFile(path.join(__dirname, 'public', 'register.html'));
 });
 
+// User Registration POST
 app.post('/register', (req, res) => {
   const users = loadUsers();
   const { username, password } = req.body;
@@ -124,9 +125,10 @@ app.post('/register', (req, res) => {
 
 // User Login Route
 app.get('/login', (req, res) => {
-  res.sendFile(__dirname + '/login.html');
+  res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
 
+// User Login POST
 app.post('/login', (req, res) => {
   const users = loadUsers();
   const { username, password } = req.body;

@@ -4,5 +4,20 @@
   },
   "kritika": {
     "password": "$2a$10$MP4P4vd.7Ao07rqWJ0GcMuiQ4mELm6q9QFu8bJkTiZCVYvN5VJhUG"
+  },
+  "kritica": {
+    "password": "$2a$10$LrN0vdPLc3b0jU6jFf.4/Oz0aXJJuZ55n/6mVx/g9.23s2e0nUyou"
+  },
+  "kavita": {
+    "password": "$2a$10$GJPh.GN46KeIHxV8syu2ou5Y6hd4r9TyMy4njIGaX90eXPCg7Leei"
+  },
+  "huh": {
+    "password": "$2a$10$1udMHckpinTpPmwQ8pUKHONENHeziNe.s2KyvtoSoXQqwWjbY04Em"
+  },
+  "naitik": {
+    "password": "$2a$10$VrOtwOkqDcwUyhdwEw4tDOEkw3eVPJ7s2bWq/sn5mkH6ZhTDouiku"
+  },
+  "virender": {
+    "password": "$2a$10$xgsVn3B2apI7FC6O5pi2.u4QHqpAhESSNO1SwdbKRBl9xIYeeYMzG"
   }
 }
